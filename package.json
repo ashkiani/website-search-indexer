@@ -18,6 +18,7 @@
   "homepage": "https://github.com/ashkiani/website-search-indexer#readme",
   "dependencies": {
     "@ashkiani/express-responses": "^1.0.0",
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   }
 }
