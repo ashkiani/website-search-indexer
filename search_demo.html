@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Site Search Demo</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    #results { margin-top: 1rem; }
+    .result { margin-bottom: 1.5rem; }
+    .result a { font-weight: bold; color: blue; text-decoration: none; }
+    .snippet { margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <h1>Site Search Demo</h1>
+  <form id="search-form">
+    <input type="text" id="query" placeholder="Enter search term" required />
+    <button type="submit">Search</button>
+  </form>
+  <div id="results"></div>
+  <script>
+    document.getElementById('search-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = document.getElementById('query').value.trim();
+      if (!query) return;
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '<p>Searching...</p>';
+      try {
+        const res = await fetch('http://localhost:3000/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        });
+        const data = await res.json();
+        if (data.error) {
+          resultsDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+          return;
+        }
+        const results = data.results;
+        if (!results.length) {
+          resultsDiv.innerHTML = '<p>No results found.</p>';
+          return;
+        }
+        resultsDiv.innerHTML = results.map(r => `
+          <div class="result">
+            <a href="${r.url}" target="_blank">${r.url}</a>
+            ${r.snippets.map(s => `<div class="snippet">${s}</div>`).join('')}
+          </div>
+        `).join('');
+      } catch (err) {
+        document.getElementById('results').innerHTML = `<p>Fetch error: ${err.message}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
