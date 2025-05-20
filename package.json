@@ -1,0 +1,23 @@
+{
+  "name": "website-search-indexer",
+  "version": "1.0.0",
+  "description": "A self-contained toolkit to crawl and index any static website into JSON, serve searches via a lightweight Node.js API, and demo the results in a simple HTML page.",
+  "main": "search_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashkiani/website-search-indexer.git"
+  },
+  "author": "Siavash Ashkiani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashkiani/website-search-indexer/issues"
+  },
+  "homepage": "https://github.com/ashkiani/website-search-indexer#readme",
+  "dependencies": {
+    "@ashkiani/express-responses": "^1.0.0",
+    "express": "^5.1.0"
+  }
+}
